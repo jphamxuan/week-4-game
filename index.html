@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+        <style>
+            .fader{
+                opacity: 0.4;
+            }
+        </style>
+</head>
+
+<body>
+    <div class="container" class="row">
+        <div id="characters" class="row">
+
+         </div>
+        <div id="gameplay" class="row">
+            <div id="hero" class="col-md-4"> 
+            </div>
+            <div id="battle" class="col-md-4">
+            </div>
+            <div id="enemy" class="col-md-4">
+            </div>
+        </div>
+
+    </div>
+
+
+
+                <script src="http://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+
+                <!--[if lt IE 7]>
+            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+        <![endif]-->
+
+
+                <script>
+                    $(document).ready(function () {
+
+                        var chosenHero
+                        var chosenEnemy
+                        var isHeroAlive
+                        var isEnemyAlive
+                        var isHeroChosen
+                        var isEnemyChosen
+
+                        function initGame() {
+                            isHeroChosen = false
+                            isEnemyChosen = false
+                            //generate characters
+                            for (var i = 0; i < charArr.length; i++) {
+                                var num = Math.floor(12 / charArr.length)
+                                
+                                var charThing = $("<div class='myChar col-md-" + num + "'value ='"+i+"'><img src='" +charArr[i].image+ "' style='width;150px; height:150px;'/></div>")
+                                $("#characters").append(charThing)
+
+                            }
+                        }
+                    $(document).on("click", ".myChar", function(){
+                    if(isHeroChosen === false){ 
+                    chosenHero = charArr [$(this).attr("value")]
+                    console.log(chosenHero)
+                    $(this).addClass("fader")
+                    isHeroChosen = true
+                    }
+                    else if (isEnemyChosen ===false && chosenHero.name != charArr[$(this).attr("value")].name){
+                        chosenEnemy = charArr[$(this).attr("value")]
+                        console.log(chosenEnemy)
+                        $(this).addClass("fader")
+                        isEnemyChosen = true
+                    }
+// var num1 = Mat.floor(Math.random()* 20)
+// var num2 = Mat.floor(Math.random()* 20)
+
+// chosenEnemy.hp -= num1
+// $"#enemyHP"
+
+
+
+chosenEnemy.hp -= num2
+
+})
+
+
+
+                        //name, hp, strength, image 
+                        var charArr = [
+                            {
+                                name: "Troll",
+                                hp: 50,
+                                image: "assets/images/troll.png",
+                                strength: 50
+                            },
+                            {
+                                name: "Lolol",
+                                hp: 50,
+                                image: "assets/images/lolol.png",
+                                strength: 50
+                            },
+                            {
+                                name: "Mother-of-God",
+                                hp: 50,
+                                image: "assets/images/mother-of-god.png",
+                                strength: 50
+                            },
+                            {
+                                name: "Forever",
+                                hp: 50,
+                                image: "assets/images/forever-alone.png",
+                                strength: 50
+                            },
+                            {
+                                name: "Me-Gusta",
+                                hp: 50,
+                                image: "assets/images/me-gusta.png",
+                                strength: 50
+                            },
+                            {
+                                name: "No",
+                                hp: 50,
+                                image: "assets/images/no.png",
+                                strength: 50
+                            }
+
+                        ]
+                        initGame()
+
+
+
+                    })
+
+
+
+
+
+
+                </script>
+
+</body>
+
+</html>
