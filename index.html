@@ -21,17 +21,15 @@
 <body>
     <div class="container" class="row">
         <div id="characters" class="row">
-
          </div>
         <div id="gameplay" class="row">
-            <div id="hero" class="col-md-4"> 
+            <div id="myHero" class="col-md-4"></div>
+            <div id="myBattle" class="col-md-4">
+                <button id="attackBTN" class="btn btn-danger">Attack!</button>
+                <div class="rom myBattleRow"></div>
             </div>
-            <div id="battle" class="col-md-4">
-            </div>
-            <div id="enemy" class="col-md-4">
-            </div>
+            <div id="myEnemy" class="col-md-4"></div>
         </div>
-
     </div>
 
 
@@ -71,23 +69,32 @@
                     console.log(chosenHero)
                     $(this).addClass("fader")
                     isHeroChosen = true
+                    myHeroThing = $("<div id='"+chosenHero.name+"'><img src='"+chosenHero.image+ "' style='width:250px; height:250px;'/><p>"+chosenHero.name+"</p><h6>HP</h6><p id='heroHP'>"+chosenHero.hp+"</p></div>")
+                    $("#myHero").html(myHeroThing)
                     }
                     else if (isEnemyChosen ===false && chosenHero.name != charArr[$(this).attr("value")].name){
                         chosenEnemy = charArr[$(this).attr("value")]
                         console.log(chosenEnemy)
                         $(this).addClass("fader")
                         isEnemyChosen = true
+                        myEnemyThing = $("<div id='"+chosenEnemy.name+"'><img src='"+chosenEnemy.image+"'style='width:250px; height:250px;'/><p>"+chosenEnemy.name+"</p><h6>HP</h6><p id='enemyHP'>"+chosenEnemy.hp+"</p></div>")
+                    $("#myEnemy").html(myEnemyThing)
                     }
-// var num1 = Mat.floor(Math.random()* 20)
-// var num2 = Mat.floor(Math.random()* 20)
-
-// chosenEnemy.hp -= num1
-// $"#enemyHP"
 
 
-
-chosenEnemy.hp -= num2
-
+})
+$("#attackBTN").on("click", function(){
+    var num1 = Math.floor(Math.random()*20)
+    var num2 = Math.floor(Math.random()* 20)
+    chosenEnemy.hp -= num1
+    $("#enemyHP").text(chosenEnemy.hp)
+    $("#myBattle").append("<p>" +  chosenHero.name + "attacked " + chosenEnemy.name + " for " + num1 + " points!</p>")
+    chosenHero.hp -= num2
+    $("#heroHP").text(chosenHero.hp)
+    $("#myBattle").append("<p>" +  chosenEnemy.name + "attacked " + chosenHero.name + " for " + num2 + " points!</p>")
+    if(chosenEnemy.hp <= 0) {
+        $(".myBattleRow").html("<h1>You Win!</h1>")
+    }
 })
 
 
@@ -96,19 +103,19 @@ chosenEnemy.hp -= num2
                         var charArr = [
                             {
                                 name: "Troll",
-                                hp: 50,
+                                hp: 150,
                                 image: "assets/images/troll.png",
                                 strength: 50
                             },
                             {
                                 name: "Lolol",
-                                hp: 50,
+                                hp: 100,
                                 image: "assets/images/lolol.png",
                                 strength: 50
                             },
                             {
-                                name: "Mother-of-God",
-                                hp: 50,
+                                name: "Mother of God",
+                                hp: 125,
                                 image: "assets/images/mother-of-god.png",
                                 strength: 50
                             },
@@ -119,14 +126,14 @@ chosenEnemy.hp -= num2
                                 strength: 50
                             },
                             {
-                                name: "Me-Gusta",
-                                hp: 50,
+                                name: "Me Gusta",
+                                hp: 75,
                                 image: "assets/images/me-gusta.png",
                                 strength: 50
                             },
                             {
                                 name: "No",
-                                hp: 50,
+                                hp: 200,
                                 image: "assets/images/no.png",
                                 strength: 50
                             }
