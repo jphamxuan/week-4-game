@@ -11,24 +11,31 @@
 
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
-        <style>
-            .fader{
-                opacity: 0.4;
-            }
-        </style>
+        <link href="https://fonts.googleapis.com/css?family=Aclonica" rel="stylesheet"><link rel="stylesheet" type="text/css" href="assets/css/style.css">    
+        
 </head>
 
 <body>
+        <div class="container" class="row">
+            <div id="title" class = "col-md-12 text-center">
+                    <span
+                       class="txt-rotate"
+                       data-period="2000"
+                       data-rotate='[ "Select your Hero!" ]'></span>
+                  </div>
+            
+        </div>   
     <div class="container" class="row">
         <div id="characters" class="row">
          </div>
         <div id="gameplay" class="row">
-            <div id="myHero" class="col-md-4"></div>
-            <div id="myBattle" class="col-md-4">
+            <div id="myHero" class="col-md-4 text-center"></div>
+            <div id="myBattle" class="col-md-4 text-center">
                 <button id="attackBTN" class="btn btn-danger">Attack!</button>
-                <div class="rom myBattleRow"></div>
+                <div class="break myBattleRow">
             </div>
-            <div id="myEnemy" class="col-md-4"></div>
+            </div>
+            <div id="myEnemy" class="col-md-4 text-center"></div>
         </div>
     </div>
 
@@ -69,7 +76,7 @@
                     console.log(chosenHero)
                     $(this).addClass("fader")
                     isHeroChosen = true
-                    myHeroThing = $("<div id='"+chosenHero.name+"'><img src='"+chosenHero.image+ "' style='width:250px; height:250px;'/><p>"+chosenHero.name+"</p><h6>HP</h6><p id='heroHP'>"+chosenHero.hp+"</p></div>")
+                    myHeroThing = $("<div id='"+chosenHero.name+"'><img src='"+chosenHero.image+ "' style='width:250px; height:250px; border-style: solid; border-width: 5px; padding: 5px;'/><h3>"+chosenHero.name+"</h3><p>HP</p><p id='heroHP'>"+chosenHero.hp+"</p></div>")
                     $("#myHero").html(myHeroThing)
                     }
                     else if (isEnemyChosen ===false && chosenHero.name != charArr[$(this).attr("value")].name){
@@ -77,8 +84,10 @@
                         console.log(chosenEnemy)
                         $(this).addClass("fader")
                         isEnemyChosen = true
-                        myEnemyThing = $("<div id='"+chosenEnemy.name+"'><img src='"+chosenEnemy.image+"'style='width:250px; height:250px;'/><p>"+chosenEnemy.name+"</p><h6>HP</h6><p id='enemyHP'>"+chosenEnemy.hp+"</p></div>")
+                        myEnemyThing = $("<div id='"+chosenEnemy.name+"'><img src='"+chosenEnemy.image+"'style='width:250px; height:250px; border-style: solid; border-width: 5px; padding: 5px;'/><h3>"+chosenEnemy.name+"</h3><p>HP</p><p id='enemyHP'>"+chosenEnemy.hp+"</p></div>")
                     $("#myEnemy").html(myEnemyThing)
+                    $(".txt-rotate").removeClass("txt-rotate")
+                    
                     }
 
 
@@ -88,13 +97,20 @@ $("#attackBTN").on("click", function(){
     var num2 = Math.floor(Math.random()* 20)
     chosenEnemy.hp -= num1
     $("#enemyHP").text(chosenEnemy.hp)
-    $("#myBattle").append("<p>" +  chosenHero.name + "attacked " + chosenEnemy.name + " for " + num1 + " points!</p>")
+    $("#myBattle").append("<p>" +  chosenHero.name + " attacked " + chosenEnemy.name + " for " + num1 + " points!</p>")
     chosenHero.hp -= num2
     $("#heroHP").text(chosenHero.hp)
-    $("#myBattle").append("<p>" +  chosenEnemy.name + "attacked " + chosenHero.name + " for " + num2 + " points!</p>")
+    $("#myBattle").append("<p>" +  chosenEnemy.name + " attacked " + chosenHero.name + " for " + num2 + " points!</p>")
     if(chosenEnemy.hp <= 0) {
-        $(".myBattleRow").html("<h1>You Win!</h1>")
+        $(".myBattleRow").empty();
+        $("#attackBTN").html("Fight Again");
+        $( "#attackBTN" ).click(function() {
+        location.reload();
+        $("#myBattle").html("you win!");
+    });
+        
     }
+   
 })
 
 
@@ -120,7 +136,7 @@ $("#attackBTN").on("click", function(){
                                 strength: 50
                             },
                             {
-                                name: "Forever",
+                                name: "Forever Alone",
                                 hp: 50,
                                 image: "assets/images/forever-alone.png",
                                 strength: 50
@@ -132,9 +148,9 @@ $("#attackBTN").on("click", function(){
                                 strength: 50
                             },
                             {
-                                name: "No",
+                                name: "Rage",
                                 hp: 200,
-                                image: "assets/images/no.png",
+                                image: "assets/images/rage.png",
                                 strength: 50
                             }
 
@@ -143,7 +159,58 @@ $("#attackBTN").on("click", function(){
 
 
 
-                    })
+
+
+// //text animation
+var TxtRotate = function(el, toRotate, period) {
+  this.toRotate = toRotate;
+  this.el = el;
+  this.loopNum = 0;
+  this.period = parseInt(period, 10) || 2000;
+  this.txt = '';
+  this.tick();
+  this.isDeleting = false;
+};
+
+TxtRotate.prototype.tick = function() {
+  var i = this.loopNum % this.toRotate.length;
+  var fullTxt = this.toRotate[i];
+
+  if (this.isDeleting) {
+    this.txt = fullTxt.substring(0, this.txt.length - 1);
+  } else {
+    this.txt = fullTxt.substring(0, this.txt.length + 1);
+  }
+
+  this.el.innerHTML = '<span class="wrap">'+this.txt+'</span>';
+
+  var that = this;
+  var delta = 300 - Math.random() * 100;
+
+  
+
+  setTimeout(function() {
+    that.tick();
+  }, delta);
+};
+
+window.onload = function() {
+  var elements = document.getElementsByClassName('txt-rotate');
+  for (var i=0; i<elements.length; i++) {
+    var toRotate = elements[i].getAttribute('data-rotate');
+    var period = elements[i].getAttribute('data-period');
+    if (toRotate) {
+      new TxtRotate(elements[i], JSON.parse(toRotate), period);
+    }
+  }
+//   INJECT CSS
+  var css = document.createElement("style");
+  css.type = "text/css";
+  css.innerHTML = ".txt-rotate > .wrap { border-right: 0.08em solid #666 }";
+  document.body.appendChild(css);
+};
+
+ })
 
 
 
