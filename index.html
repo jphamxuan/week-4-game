@@ -19,7 +19,7 @@
 
 <body>
         
-                       
+    
            
     <div class="container" class="row">
             <div id="title" class = "col-md-12 text-center">
@@ -55,7 +55,7 @@
 
 
 
-     <script src="http://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 
 
                 <script>
@@ -86,7 +86,7 @@
                     console.log(chosenHero)
                     $(this).addClass("fader")
                     isHeroChosen = true
-                    myHeroThing = $("<div id='"+chosenHero.name+"'><img src='"+chosenHero.image+ "' style='width:250px; height:250px; border-style: solid; border-width: 5px; padding: 5px;'/><h3>"+chosenHero.name+"</h3><p>HP</p><p id='heroHP'>"+chosenHero.hp+"</p></div>")
+                    myHeroThing = $("<div id='"+chosenHero.name+"'><img src='"+chosenHero.image+ "' style='width:250px; height:250px; border-style: solid; border-width: 5px; padding: 5px;'/><h3>"+chosenHero.name+"</h3><h2>HP</h2><h2 id='heroHP'>"+chosenHero.hp+"</h2></div>")
                     $("#myHero").html(myHeroThing)
                     }
                     else if (isEnemyChosen ===false && chosenHero.name != charArr[$(this).attr("value")].name){
@@ -94,9 +94,9 @@
                         console.log(chosenEnemy)
                         $(this).addClass("fader")
                         isEnemyChosen = true
-                        myEnemyThing = $("<div id='"+chosenEnemy.name+"'><img src='"+chosenEnemy.image+"'style='width:250px; height:250px; border-style: solid; border-width: 5px; padding: 5px;'/><h3>"+chosenEnemy.name+"</h3><p>HP</p><p id='enemyHP'>"+chosenEnemy.hp+"</p></div>")
+                        myEnemyThing = $("<div id='"+chosenEnemy.name+"'><img src='"+chosenEnemy.image+"'style='width:250px; height:250px; border-style: solid; border-width: 5px; padding: 5px;'/><h3>"+chosenEnemy.name+"</h3><h2>HP</h2><h2 id='enemyHP'>"+chosenEnemy.hp+"</h2></div>")
                     $("#myEnemy").html(myEnemyThing)
-                    $(".txt-rotate").removeClass("txt-rotate")
+                    
                     
                     }
 
@@ -112,7 +112,7 @@ $("#attackBTN").on("click", function(){
     $("#heroHP").text(chosenHero.hp)
     $("#myBattle").append("<p>" +  chosenEnemy.name + " attacked " + chosenHero.name + " for " + num2 + " points!</p>")
     if(chosenEnemy.hp <= 0) {
-        $(".myBattleRow").empty();
+        $("p").empty();
         $("#attackBTN").html("Fight Again");
         $(".myBattleRow").html("<h4>You Win!</h4>");
         $( "#attackBTN" ).click(function() {
@@ -120,12 +120,13 @@ $("#attackBTN").on("click", function(){
         });
     }
    if (chosenHero.hp <=0){
-    $(".myBattleRow").empty();
+        $("p").empty();
         $("#attackBTN").html("Fight Again");
         $(".myBattleRow").html("<h4>You Lose!</h4>");
         $( "#attackBTN" ).click(function() {
         location.reload();
         }); 
+      
    }
 })
 
@@ -137,7 +138,8 @@ $("#attackBTN").on("click", function(){
                                 name: "Troll",
                                 hp: 150,
                                 image: "assets/images/troll.png",
-                                strength: 50
+                                strength: 50,
+                                description:  "Mastered the art of the troll"
                             },
                             {
                                 name: "Lolol",
@@ -177,7 +179,7 @@ $("#attackBTN").on("click", function(){
 
 
 
-// //text animation
+//text animation
 var TxtRotate = function(el, toRotate, period) {
   this.toRotate = toRotate;
   this.el = el;

@@ -27,7 +27,7 @@ body {
     padding: 20px;
     margin: 10px;
 }
-p{
+p, h2, h3{
     background-color: white;
     margin-bottom: auto;
 }
@@ -41,6 +41,9 @@ p{
     width: 100%;
     color: white;
     text-align: center;
+}
+h3{
+  font-size: 30px;
 }
 h4{
     background-color: red;
